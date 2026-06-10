@@ -44,6 +44,7 @@ curl "http://127.0.0.1:8000/elevation?address=Pariser%20Platz%201%2C%2010117%20B
 ```
 
 Interactive API docs: http://127.0.0.1:8000/docs
+Browser demo page: http://127.0.0.1:8000/
 
 ### Docker
 
@@ -84,6 +85,11 @@ Errors share one shape:
 ### `GET /healthz`
 
 Liveness probe, returns `{"status": "ok"}`.
+
+### `GET /`
+
+Minimal demo page (a single static HTML file, no build step) that calls
+`/elevation` from the browser — convenient for trying the service without curl.
 
 ## Design decisions
 

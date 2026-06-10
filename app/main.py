@@ -8,10 +8,11 @@ elevation lookup (official DGM1 federal-state data) -> JSON response.
 """
 
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 import httpx
 from fastapi import FastAPI, Query, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
 
 from .cache import TTLCache
 from .config import load_settings
@@ -21,6 +22,7 @@ from .geocoding import NominatimGeocoder
 from .schemas import ElevationResponse, ErrorResponse
 
 OSM_ATTRIBUTION = "Geocoding © OpenStreetMap contributors (ODbL)"
+STATIC_DIR = Path(__file__).parent / "static"
 
 
 @asynccontextmanager
@@ -119,3 +121,9 @@ async def get_elevation(
 @app.get("/healthz", include_in_schema=False)
 async def healthz() -> dict:
     return {"status": "ok"}
+
+
+@app.get("/", include_in_schema=False)
+async def demo_page() -> FileResponse:
+    """Minimal browser demo for the /elevation endpoint."""
+    return FileResponse(STATIC_DIR / "index.html", media_type="text/html")
