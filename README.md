@@ -70,7 +70,7 @@ happy path, every error path, input validation, and cache behaviour.
 | Status | Meaning |
 |---|---|
 | 200 | Success — body matches the example above |
-| 400 | `INVALID_ADDRESS` — blank address |
+| 400 | `INVALID_ADDRESS` — missing or blank address |
 | 404 | `ADDRESS_NOT_FOUND` — nothing in Germany matched the address |
 | 422 | `OUTSIDE_COVERAGE` — resolved coordinates have no German elevation data |
 | 502 | `UPSTREAM_ERROR` — a dependency failed or answered unexpectedly |

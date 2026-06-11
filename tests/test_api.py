@@ -81,9 +81,10 @@ def test_elevation_service_error_returns_502(client):
     assert response.json()["error"]["code"] == "UPSTREAM_ERROR"
 
 
-def test_missing_address_param_is_rejected(client):
+def test_missing_address_param_returns_400(client):
     response = client.get("/elevation")
-    assert response.status_code == 422
+    assert response.status_code == 400
+    assert response.json()["error"]["code"] == "INVALID_ADDRESS"
 
 
 def test_blank_address_returns_400(client):

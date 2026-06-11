@@ -12,6 +12,7 @@ from pathlib import Path
 
 import httpx
 from fastapi import FastAPI, Query, Request
+from fastapi.exceptions import RequestValidationError
 from fastapi.responses import FileResponse, JSONResponse
 
 from .cache import TTLCache
@@ -64,6 +65,24 @@ async def service_error_handler(request: Request, exc: ServiceError) -> JSONResp
     return JSONResponse(
         status_code=exc.status_code,
         content={"error": {"code": exc.code, "message": exc.message}},
+    )
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_error_handler(
+    request: Request, exc: RequestValidationError
+) -> JSONResponse:
+    # The only validated input is the address query param, so a request
+    # validation failure means it is missing. Map it to the same error shape
+    # (and status) as a blank address instead of FastAPI's default 422.
+    return JSONResponse(
+        status_code=400,
+        content={
+            "error": {
+                "code": "INVALID_ADDRESS",
+                "message": "Query parameter 'address' is required",
+            }
+        },
     )
 
 
