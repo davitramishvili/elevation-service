@@ -32,6 +32,8 @@ GET /elevation?address=Pariser Platz 1, 10117 Berlin
 
 ### Local
 
+Requires Python 3.10+.
+
 ```bash
 python -m venv .venv
 source .venv/bin/activate          # Windows: .venv\Scripts\activate
