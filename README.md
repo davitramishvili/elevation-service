@@ -48,13 +48,6 @@ curl "http://127.0.0.1:8000/elevation?address=Pariser%20Platz%201%2C%2010117%20B
 Interactive API docs: http://127.0.0.1:8000/docs
 Browser demo page: http://127.0.0.1:8000/
 
-### Docker
-
-```bash
-docker build -t elevation-service .
-docker run --rm -p 8000:8000 elevation-service
-```
-
 ### Tests
 
 ```bash
